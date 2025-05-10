@@ -41,14 +41,14 @@
                         <form action="{{ route('postRegister') }}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Họ và tên" value="{{ old('name') }}" >
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Họ và tên" value="{{ old('name') }}" required>
                                 @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Giới Tính</label>
-                                <select id="gender" name="gender" class="form-control" >
+                                <select id="gender" name="gender" class="form-control" required>
                                     <option value="" disabled {{ old('gender') ? '' : 'selected' }}>Chọn giới tính</option>
                                     <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Nam</option>
                                     <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Nữ</option>
@@ -59,31 +59,31 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Số điện thoại" value="{{ old('phone') }}" >
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Số điện thoại" value="{{ old('phone') }}" required>
                                 @error('phone')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="address" id="address" placeholder="Nhập địa chỉ" value="{{ old('address') }}" >
+                                <input type="text" class="form-control" name="address" id="address" placeholder="Nhập địa chỉ" value="{{ old('address') }}" required>
                                 @error('address')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}" >
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="{{ old('email') }}" required>
                                 @error('email')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu" >
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu" required>
                                 @error('password')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Nhập lại mật khẩu" >
+                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Nhập lại mật khẩu" required>
                                 @error('password_confirmation')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror

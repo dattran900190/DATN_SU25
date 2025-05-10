@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function home(){
-        return view('welcome');
-    }
     public function login()
     {
         return view('login');
@@ -36,6 +33,10 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $req->email, 'password' => $req->password], $req->filled('remember'))) {
             $req->session()->regenerate();
+            $user = Auth::user();
+            if ($user->role === 'admin') {
+                return redirect()->route('dashboard');
+            }
             return redirect()->route('home');
         }
 
@@ -78,19 +79,20 @@ class AuthController extends Controller
             ]
         );
 
-    
         $user = new User();
         $user->name = $req->name;
         $user->email = $req->email;
         $user->phone = $req->phone;
         $user->gender = $req->gender;
         $user->address = $req->address;
+        $user->role = 'user'; // Thêm role mặc định là 'user'
         $user->password = Hash::make($req->password);
         $user->save();
 
         Auth::login($user);
 
-        return redirect()->route('login')->with('success', 'Đăng ký thành công!');
+        // Chuyển hướng đến home thay vì login
+        return redirect()->route('home')->with('success', 'Đăng ký thành công!');
     }
 
     public function logout(Request $request)
