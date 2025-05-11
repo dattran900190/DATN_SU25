@@ -330,6 +330,12 @@ return [
             'url'  => 'admin/barbers',
             'icon' => 'fas fas fa-cut',
         ],
+        [
+            'text' => 'Quản lý chi nhánh',
+            'url'  => 'admin/branches',
+            'icon' => 'fas fa-building',
+        ],
+
     ],
 
 
