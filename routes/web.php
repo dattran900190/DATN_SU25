@@ -11,14 +11,26 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postLogin'])->name('postLogin');
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'postRegister'])->name('postRegister');
-Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/', [AuthController::class, 'home'])->name('home');
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
+
+
+Route::middleware(['auth', 'role'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+    // Hiển thị giao diện danh sách Dịch vụ
+    Route::get('/services', [ServiceController::class, 'index'])->name('admin.services.index');
+    // Hiển thị giao diện danh sách Thợ cắt tóc
+    Route::get('/barbers', [BarberController::class, 'index'])->name('admin.barbers.index');
 });
 
-// Hiển thị giao diện danh sách Dịch vụ
-Route::get('/admin/services', [ServiceController::class, 'index'])->name('admin.services.index');
+
 
 // Hiển thị giao diện danh sách Thợ cắt tóc
 Route::get('/admin/barbers', [BarberController::class, 'index'])->name('admin.barbers.index');
@@ -32,3 +44,4 @@ Route::get('/admin/branches/{branch}/edit', [BranchController::class, 'edit'])->
 Route::put('/admin/branches/{branch}', [BranchController::class, 'update'])->name('admin.branches.update');
 Route::delete('/admin/branches/{branch}', [BranchController::class, 'destroy'])->name('admin.branches.destroy');
 Route::get('/admin/branches/search', [BranchController::class, 'search'])->name('admin.branches.search');
+
